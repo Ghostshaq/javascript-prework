@@ -12,20 +12,19 @@ function clearMessages() {
 }
 
 function getMoveName(argMoveId) {
-    if (argMoveId == 1) {
-        return 'kamień';
-    } else if (argMoveId == 2) {
-        return 'papier';
-    } else if (argMoveId == 3) {
-        return 'nożyce';
-    }
+    if (argMoveId == 1) return 'kamień';
+    if (argMoveId == 2) return 'papier';
+    if (argMoveId == 3) return 'nożyce';
     return 'nieznany ruch';
 }
 
 function displayResult(argComputerMove, argPlayerMove) {
     if (argPlayerMove === 'nieznany ruch') {
         printMessage('Błędny ruch! Wybierz 1, 2 lub 3.');
-    } else if (argPlayerMove === argComputerMove) {
+        return;
+    }
+
+    if (argPlayerMove === argComputerMove) {
         printMessage('Remis!');
     } else if (
         (argComputerMove === 'kamień' && argPlayerMove === 'papier') ||
@@ -39,36 +38,16 @@ function displayResult(argComputerMove, argPlayerMove) {
         computerScore++;
     }
 
-    updateScore();
-    checkWinner();
-}
-
-function updateScore() {
     document.getElementById('player-score').textContent = playerScore;
     document.getElementById('computer-score').textContent = computerScore;
-}
 
-function checkWinner() {
-    if (playerScore === 5) {
-        alert("🎉 Wygrałeś grę!");
-        resetGame();
-    } else if (computerScore === 5) {
-        alert("💀 Przegrałeś grę!");
-        resetGame();
+    if (playerScore === 5 || computerScore === 5) {
+        setTimeout(endGame, 500);
     }
-}
-
-function resetGame() {
-    playerScore = 0;
-    computerScore = 0;
-    updateScore();
-    clearMessages();
 }
 
 function playGame(playerInput) {
-    if (playerScore === 5 || computerScore === 5) {
-        return; // Jeśli ktoś już wygrał, zatrzymaj grę
-    }
+    if (playerScore === 5 || computerScore === 5) return; // Zablokowanie gry po końcu
 
     clearMessages();
     
@@ -82,6 +61,25 @@ function playGame(playerInput) {
     displayResult(computerMove, playerMove);
 }
 
+function endGame() {
+    let message = playerScore === 5 ? 'WYGRAŁEŚ!' : 'PRZEGRAŁEŚ!';
+    
+    document.body.innerHTML = `
+        <div class="end-screen">
+            <h1>${message}</h1>
+            <button id="restart-game">Zagraj ponownie</button>
+        </div>
+    `;
+
+    document.getElementById('restart-game').addEventListener('click', restartGame);
+}
+
+function restartGame() {
+    playerScore = 0;
+    computerScore = 0;
+    location.reload(); // Przeładowanie strony, by przywrócić początkowy stan
+}
+
 document.getElementById('play-rock').addEventListener('click', function () {
     playGame(1);
 });
@@ -93,6 +91,3 @@ document.getElementById('play-paper').addEventListener('click', function () {
 document.getElementById('play-scissors').addEventListener('click', function () {
     playGame(3);
 });
-
-
-
