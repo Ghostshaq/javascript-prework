@@ -35,3 +35,19 @@ if (playerInput == '1') {
   }
   
   printMessage('Twój ruch to: ' + playerMove);
+
+  //zwracanie wyniku
+
+  if (playerMove === 'nieznany ruch') {
+	printMessage('Błędny ruch! Wpisz 1, 2 lub 3.');
+  } else if (playerMove === computerMove) {
+	printMessage('Remis!');
+  } else if (
+	(computerMove === 'kamień' && playerMove === 'papier') ||
+	(computerMove === 'papier' && playerMove === 'nożyce') ||
+	(computerMove === 'nożyce' && playerMove === 'kamień')
+  ) {
+	printMessage('Ty wygrywasz!');
+  } else {
+	printMessage('Komputer wygrywa!');
+  }
