@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kamień, papier, nożyce</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="title">
+        <h1>Witaj w grze kamień, papier i nożyce!</h1>
+        <div class="rules">
+            <p>Zanim zagramy przeczytaj poniższą instrukcję:</p>
+            <p>Gramy do 5 wygranych. Żeby zacząć musisz nacisnąć jeden z przycisków: "Papier", "Kamień" lub "Nożyce".<br>
+                Obok znajdziesz licznik punktów ile kto zgromadził. Remis nie przyznaje nikomu punktów.</p>
+        </div>
+    </div>
+    <div class="scoreboard">
+        <p>Twój wynik: <span id="player-score">0</span></p>
+        <p>Wynik komputera: <span id="computer-score">0</span></p>
+    </div>
+    <div class="container">
+        <div id="buttons">
+            <button id="play-rock">Kamień</button>
+            <button id="play-paper">Papier</button>
+            <button id="play-scissors">Nożyce</button>
+        </div>
+        <div id="messages"></div>
+    </div> 
+    <div id="game-result"></div>
+    
+    <script src="js/functions.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

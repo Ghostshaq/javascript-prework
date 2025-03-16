@@ -1,3 +1,6 @@
+let playerScore = 0;
+let computerScore = 0;
+
 function printMessage(msg) {
     let div = document.createElement('div');
     div.innerHTML = msg;
@@ -30,12 +33,43 @@ function displayResult(argComputerMove, argPlayerMove) {
         (argComputerMove === 'nożyce' && argPlayerMove === 'kamień')
     ) {
         printMessage('Ty wygrywasz!');
+        playerScore++;
     } else {
         printMessage('Komputer wygrywa!');
+        computerScore++;
+    }
+
+    updateScore();
+    checkWinner();
+}
+
+function updateScore() {
+    document.getElementById('player-score').textContent = playerScore;
+    document.getElementById('computer-score').textContent = computerScore;
+}
+
+function checkWinner() {
+    if (playerScore === 5) {
+        alert("🎉 Wygrałeś grę!");
+        resetGame();
+    } else if (computerScore === 5) {
+        alert("💀 Przegrałeś grę!");
+        resetGame();
     }
 }
 
+function resetGame() {
+    playerScore = 0;
+    computerScore = 0;
+    updateScore();
+    clearMessages();
+}
+
 function playGame(playerInput) {
+    if (playerScore === 5 || computerScore === 5) {
+        return; // Jeśli ktoś już wygrał, zatrzymaj grę
+    }
+
     clearMessages();
     
     let randomNumber = Math.floor(Math.random() * 3 + 1);
@@ -59,3 +93,6 @@ document.getElementById('play-paper').addEventListener('click', function () {
 document.getElementById('play-scissors').addEventListener('click', function () {
     playGame(3);
 });
+
+
+
